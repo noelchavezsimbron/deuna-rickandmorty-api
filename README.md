@@ -1,9 +1,8 @@
 # Rickandmorty API
+This is an API service for retrieving episodes of the **Rick and Morty** series. The following endpoints are available to interact with episode data.
 
-## To start the api:
-```shell
-docker-compose up
-```
+## Base Path
+The URL Base for this API is: http://localhost:8080/api/deuna-rickandmorty-api/v1
 
 ## Endpoints
 
@@ -14,6 +13,11 @@ docker-compose up
 | `GET`  | `/episodes/:id`              | Get episode by ID                       | `id` (Path Parameter)             | Episodes          | `200 OK`, `404 Not Found` |
 | `GET`  | `/episodes/?ids=1,2,3,4`     | Get multiple episodes and sorted by IDs | `ids` (Query Parameter, lista de IDs separados por comas) | Array of episodes | `200 OK`, `400 Bad Request` |
 
+
+## To start the api:
+```shell
+docker-compose up
+```
 
 ## To test the connection:
 ```shell
@@ -148,16 +152,17 @@ You should see
 ]
 ```
 
-## Perform e2e test:
-```shell
-make test.e2e
-```
-
 ## Perform unit test:
 ```shell
 make test.unit
 
 ```
+
+## Perform e2e test:
+```shell
+make test.e2e
+```
+
 ## Docs
 You can try the api directly from swagger
 
