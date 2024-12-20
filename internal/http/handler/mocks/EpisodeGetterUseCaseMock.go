@@ -72,6 +72,36 @@ func (_m *EpisodeGetterUseCaseMock) GetByID(ctx context.Context, ID int64) (epis
 	return r0, r1
 }
 
+// GetMultipleByIDs provides a mock function with given fields: ctx, IDs
+func (_m *EpisodeGetterUseCaseMock) GetMultipleByIDs(ctx context.Context, IDs []int64) ([]episode.Episode, error) {
+	ret := _m.Called(ctx, IDs)
+
+	if len(ret) == 0 {
+		panic("no return value specified for GetMultipleByIDs")
+	}
+
+	var r0 []episode.Episode
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, []int64) ([]episode.Episode, error)); ok {
+		return rf(ctx, IDs)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, []int64) []episode.Episode); ok {
+		r0 = rf(ctx, IDs)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]episode.Episode)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, []int64) error); ok {
+		r1 = rf(ctx, IDs)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // NewEpisodeGetterUseCaseMock creates a new instance of EpisodeGetterUseCaseMock. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
 // The first argument is typically a *testing.T value.
 func NewEpisodeGetterUseCaseMock(t interface {
