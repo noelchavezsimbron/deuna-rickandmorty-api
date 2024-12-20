@@ -1,18 +1,14 @@
-# kata-peya-api
+Feature:
+  In order to use episodes api
+  As an user of the Api rickandmorty
+  I need get episodes
 
-## To start the api:
-```shell
-docker-compose up
-```
-
-## To test the connection:
-```shell
-curl -X GET http://localhost:8080/api/deuna-rickandmorty-api/v1/episodes/1
-```
-
-You should see
-```json
-{
+  Scenario: get episode by id
+    When I send "GET" request to "/episodes/{id}" with param "1"
+    Then the response status code should be 200
+    And the response should match json:
+      """
+        {
   "id": 1,
   "name": "Pilot",
   "air_date": "December 2, 2013",
@@ -41,24 +37,4 @@ You should see
   "url": "https://rickandmortyapi.com/api/episode/1",
   "created": "2017-11-10T12:56:33.798Z"
 }
-```
-
-## Perform e2e test:
-```shell
-make test.e2e
-```
-
-## Perform unit test:
-```shell
-make test.unit
-```
-
-Swagger Docs URL:  http://localhost:8080/api/deuna-rickandmorty-api/v1/docs/index.html
-
-![Imagen local](./images/swagger.jpg)
-
-See Traces: http://localhost:16686/
-
-![Imagen local](./images/jaeger_search.jpg)
-
-![Imagen local](./images/trace_sample.jpg)
+      """

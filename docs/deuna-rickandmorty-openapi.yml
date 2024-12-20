@@ -1,0 +1,104 @@
+basePath: /api/deuna-rickandmorty-api/v1
+definitions:
+  deuna-rickandmorty-api_internal_episode.Episode:
+    properties:
+      air_date:
+        type: string
+      characters:
+        items:
+          type: string
+        type: array
+      created:
+        type: string
+      episode:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      url:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a kata api server.
+  title: Rick and Morty Api
+  version: "1.0"
+paths:
+  /episodes:
+    get:
+      description: get all episodes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/deuna-rickandmorty-api_internal_episode.Episode'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: List episodes
+      tags:
+      - episodes
+  /episodes/{id}:
+    get:
+      description: get episode by id
+      parameters:
+      - description: episode id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/deuna-rickandmorty-api_internal_episode.Episode'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get episode by id
+      tags:
+      - episodes
+  /health:
+    get:
+      consumes:
+      - '*/*'
+      description: Get the status of server.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Show the status of server.
+      tags:
+      - healthCheck
+schemes:
+- http
+swagger: "2.0"
