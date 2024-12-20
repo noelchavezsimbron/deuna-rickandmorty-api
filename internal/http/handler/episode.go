@@ -17,6 +17,7 @@ type (
 	episodeGetterUseCase interface {
 		GetAll(ctx context.Context) ([]episode.Episode, error)
 		GetByID(ctx context.Context, ID int64) (episode.Episode, error)
+		GetMultipleByIDs(ctx context.Context, IDs []int64) ([]episode.Episode, error)
 	}
 
 	Episode struct {
@@ -84,4 +85,39 @@ func (e *Episode) HandleGetByID(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, ep)
+}
+
+// HandleGetMultipleByIDs godoc
+// @Summary      Get multiple episodes by ids
+// @Description  get multiple episodes by ids
+// @Tags         episodes
+// @Produce      json
+// @Param        ids    query     string  true  "episode ids delimited with comma ,"
+// @Success      200  {array}   episode.Episode
+// @Failure      400  {string}  string
+// @Failure      404  {string}  string
+// @Failure      500  {string}  string
+// @Router       /episodes/multiple [get]
+func (e *Episode) HandleGetMultipleByIDs(c echo.Context) error {
+	ctx := c.Request().Context()
+	ctx, span := tracer.Start(ctx, "handler.Episode.HandleGetMultipleByIDs")
+	defer span.End()
+
+	idsParam := IDsParam(c.QueryParam("ids"))
+
+	episodeIDs, err := idsParam.Values()
+	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+		return c.JSON(http.StatusBadRequest, err.Error())
+	}
+
+	eps, err := e.episodeGetterUseCase.GetMultipleByIDs(ctx, episodeIDs)
+	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, eps)
 }

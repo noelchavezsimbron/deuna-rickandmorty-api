@@ -84,6 +84,39 @@ paths:
       summary: Get episode by id
       tags:
       - episodes
+  /episodes/multiple:
+    get:
+      description: get multiple episodes by ids
+      parameters:
+      - description: episode ids delimited with comma ,
+        in: query
+        name: ids
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/deuna-rickandmorty-api_internal_episode.Episode'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get multiple episodes by ids
+      tags:
+      - episodes
   /health:
     get:
       consumes:

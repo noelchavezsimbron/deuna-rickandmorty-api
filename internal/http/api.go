@@ -20,4 +20,5 @@ func (api *Api) Routes(r *echo.Group) {
 	r.GET("/health", handler.HealthCheck)
 	r.GET("/episodes", api.episodesHAndler.HandleGetAll)
 	r.GET("/episodes/:id", api.episodesHAndler.HandleGetByID)
+	r.GET("/episodes/multiple", api.episodesHAndler.HandleGetMultipleByIDs)
 }

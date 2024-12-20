@@ -13,7 +13,6 @@ import (
 	"deuna-rickandmorty-api/internal/episode"
 	"deuna-rickandmorty-api/internal/http"
 	"deuna-rickandmorty-api/internal/http/handler"
-	"deuna-rickandmorty-api/internal/storage/postgres"
 
 	"github.com/go-resty/resty/v2"
 	_ "github.com/go-sql-driver/mysql"
@@ -50,16 +49,8 @@ func main() {
 	otel.SetTracerProvider(tp)
 
 	var (
-		server = newServer()
-		router = server.Group(conf.Server.BasePath)
-		_      = postgres.New(postgres.Config{
-			Host:     conf.DB.Host,
-			Port:     conf.DB.Port,
-			Database: conf.DB.Database,
-			User:     conf.DB.User,
-			Password: conf.DB.Password,
-		})
-
+		server               = newServer()
+		router               = server.Group(conf.Server.BasePath)
 		client               = resty.New() //.SetTransport(otelhttp.NewTransport(stdHttp.DefaultTransport))
 		episodeRepo          = rickandmorty.NewClient(client, rickandmorty.APIConfig{BaseURL: conf.RickandmortyAPI.BasePath})
 		episodeGetterUseCase = episode.NewGetterUseCase(episodeRepo)
