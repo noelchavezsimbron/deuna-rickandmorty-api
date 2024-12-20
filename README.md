@@ -21,7 +21,7 @@ docker-compose up
 
 ## To test the connection:
 ```shell
-http://localhost:8080/api/deuna-rickandmorty-api/v1/episodes/multiple?ids=3,5,2,1
+curl -X GET "http://localhost:8080/api/deuna-rickandmorty-api/v1/episodes/multiple?ids=3,5,2,1"
 ```
 
 You should see
