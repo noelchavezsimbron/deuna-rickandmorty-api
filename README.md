@@ -1,4 +1,4 @@
-# kata-peya-api
+# Rickandmorty API
 
 ## To start the api:
 ```shell
