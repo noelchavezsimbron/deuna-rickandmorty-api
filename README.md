@@ -11,7 +11,7 @@ The URL Base for this API is: http://localhost:8080/api/deuna-rickandmorty-api/v
 | `GET`  | `/health`                    | Check service status                    | N/A                               | `200 OK`          | 200              |
 | `GET`  | `/episodes`                  | Get all episodes                        | N/A                               | Array of episodes | `200 OK`  |
 | `GET`  | `/episodes/:id`              | Get episode by ID                       | `id` (Path Parameter)             | Episodes          | `200 OK`, `404 Not Found` |
-| `GET`  | `/episodes/?ids=1,2,3,4`     | Get multiple episodes and sorted by IDs | `ids` (Query Parameter, lista de IDs separados por comas) | Array of episodes | `200 OK`, `400 Bad Request` |
+| `GET`  | `/episodes/multiple?ids=1,2,3,4`     | Get multiple episodes and sorted by IDs | `ids` (Query Parameter, lista de IDs separados por comas) | Array of episodes | `200 OK`, `400 Bad Request` |
 
 
 ## To start the api:
